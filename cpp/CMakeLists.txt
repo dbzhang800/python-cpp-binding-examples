@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.22)
 project(CppLibs)
 
 if (WIN32)
@@ -11,4 +11,4 @@ else()
 endif()
 
 add_subdirectory(lib1)
-#add_subdirectory(lib2)
+add_subdirectory(lib2)
