@@ -1,0 +1,46 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest] # Supported platforms
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python 3.12
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      # Step 3: Install CMake
+      - name: Install CMake
+        uses: lukka/get-cmake@latest
+
+      # Step 4: Install dependencies
+      - name: Install pytest
+        run: pip install pytest
+
+      # Step 5: Configure and build the project (Release mode)
+      - name: Configure and build
+        run: |
+          mkdir -p build
+          cmake -S cpp -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --config Release
+
+      # Step 6: Run Python tests
+      - name: Run Python tests
+        run: pytest python
