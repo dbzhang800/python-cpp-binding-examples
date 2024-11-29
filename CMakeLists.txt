@@ -10,5 +10,6 @@ else()
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib) # For .a
 endif()
 
-add_subdirectory(lib1)
-add_subdirectory(lib2)
+add_subdirectory(cpp/lib1)
+add_subdirectory(cpp/lib2)
+add_subdirectory(pybind11)

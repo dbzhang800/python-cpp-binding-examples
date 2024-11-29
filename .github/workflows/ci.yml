@@ -31,14 +31,32 @@ jobs:
         uses: lukka/get-cmake@latest
 
       # Step 4: Install dependencies
-      - name: Install pytest
-        run: pip install pytest cffi
+      - name: Install pytest etc.
+        run: pip install pytest cffi pybind11
+
+      # Step 4.1: Config CMake
+      - name: Set CMAKE_PREFIX_PATH
+        shell: bash
+        if: matrix.os != 'windows-latest'
+        run: |
+          PYBIND11_CMAKE_PATH=$(python -m pybind11 --cmakedir)
+          echo "PYBIND11_CMAKE_PATH=${PYBIND11_CMAKE_PATH}"
+          echo "pybind11_DIR=${PYBIND11_CMAKE_PATH}" >> $GITHUB_ENV
+
+      - name: Set CMAKE_PREFIX_PATH (Windows)
+        shell: powershell
+        if: matrix.os == 'windows-latest'
+        run: |
+          $PYBIND11_CMAKE_PATH = python -m pybind11 --cmakedir
+          Write-Host "PYBIND11_CMAKE_PATH=$PYBIND11_CMAKE_PATH"
+          echo "CMAKE_PREFIX_PATH=$PYBIND11_CMAKE_PATH" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "pybind11_DIR=$PYBIND11_CMAKE_PATH" | Out-File -FilePath $env:GITHUB_ENV -Append
 
       # Step 5: Configure and build the project (Release mode)
       - name: Configure and build
         run: |
           mkdir -p build
-          cmake -S cpp -B build -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
           cmake --build build --config Release
 
       # Step 6: Run Python tests
