@@ -1,0 +1,13 @@
+[build-system]
+requires = ["sip >=6, <7"]
+build-backend = "sipbuild.api"
+
+[project]
+name = "lib2_sip"
+
+[tool.sip.bindings.lib2_sip]
+headers = ["../../cpp/lib2/lib2.h"]
+include-dirs = ["../../cpp/lib2"]
+libraries = ["lib2"]
+library-dirs = ["../../build/lib", "../../build/lib/Release"]
+
