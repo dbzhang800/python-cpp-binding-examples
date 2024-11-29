@@ -1,16 +1,9 @@
 import os
 import sys
 from cffi import FFI
+import mycommon
 
-# Determine the shared library name
-lib_base_name = "lib1"
-if sys.platform == "win32":
-    lib_path = f"bin/{lib_base_name}.dll"
-elif sys.platform == "darwin":
-    lib_path = f"lib/lib{lib_base_name}.dylib"
-else:
-    lib_path = f"lib/lib{lib_base_name}.so"
-lib_full_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../build", lib_path))
+lib_full_path = mycommon.get_lib_path('lib1')
 
 # Create an FFI instance
 ffi = FFI()

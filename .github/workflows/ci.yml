@@ -61,4 +61,4 @@ jobs:
 
       # Step 6: Run Python tests
       - name: Run Python tests
-        run: pytest python
+        run: pytest pythontests
