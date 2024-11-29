@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typesystem package="lib2_shiboken">
+    <function signature="add(int, int)" />
+</typesystem>
