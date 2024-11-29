@@ -14,4 +14,5 @@ endif()
 
 add_subdirectory(cpp/lib1)
 add_subdirectory(cpp/lib2)
+add_subdirectory(binds/lib2_pythonapi)
 add_subdirectory(binds/lib2_pybind11)
